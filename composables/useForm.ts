@@ -1,32 +1,38 @@
-import { MaybeRef } from "@vueuse/core";
+import { MaybeRef } from '@vueuse/core';
 
 export function useForm<T>(url: MaybeRef<string>, initialData?: T) {
     const data = reactive(Object.assign({}, initialData));
+    const errors = reactive(Object.assign({}, {}));
     const request = useHttp();
     const busy = request.loading;
 
     function setValues(newData: Partial<T>) {
-        Object.assign(data, newData)
+        Object.assign(data, newData);
     }
 
-    function post() {
-        return submit('post')
+    function post<T>() {
+        return submit<T>('post');
     }
 
-    function submit(method: 'post') {
-        return request.request(url, { method, body: unref(data) })
+    function setErrors(newErrors: any) {
+        Object.assign(errors, newErrors);
+    }
+
+    function submit<T>(method: 'post') {
+        return request
+            .request<T>(url, { method, body: unref(data) })
             .then((data) => {
-                console.log(data)
+                return data;
             })
             .catch((error: any) => {
-                console.log(error)
-            })
+                setErrors(error.response._data.errors);
+            });
     }
 
     return {
         data,
         busy,
         setValues,
-        post
-    }
+        post,
+    };
 }
