@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss',
         '@vueuse/nuxt',
+        '@vue-macros/nuxt',
         [
             '@pinia/nuxt',
             {

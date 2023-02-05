@@ -55,6 +55,6 @@ function makeForm() {
 
 <style scoped lang="css">
 .form-card {
-    @apply bg-slate-700 flex flex-col justify-center h-full items-center w-full p-8 rounded md: w-[50%] lg:w-[30%] md:max-h-[50%];
+    @apply bg-slate-700 flex flex-col justify-center h-full w-full items-center p-8 rounded md:w-[50%] lg:w-[30%] md:max-h-[50%];
 }
 </style>

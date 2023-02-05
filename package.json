@@ -5,13 +5,16 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "lint": "eslint --ext .ts,.js,.vue,.json .",
+    "prepare": "nuxt prepare",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.2.0",
+    "@mdi/js": "^7.1.96",
+    "@nuxtjs/tailwindcss": "^6.3.0",
     "@pinia/nuxt": "^0.4.6",
     "@vueuse/core": "^9.11.1",
+    "@vue-macros/nuxt": "^1.0.2",
     "@vueuse/nuxt": "^9.11.1",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
@@ -21,9 +24,11 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.8.0",
-    "nuxt": "^3.0.0",
+    "nuxt": "^3.1.0",
     "pinia": "^2.0.29",
-    "vite-plugin-vuetify": "^1.0.0",
-    "vuetify": "^3.1.0"
+    "prettier": "^2.8.3",
+    "vite-plugin-vuetify": "^1.0.1",
+    "vuetify": "^3.1.2",
+    "v-money3": "^3.22.3"
   }
 }
