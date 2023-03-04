@@ -16,7 +16,7 @@
                         <section>
                             <label class="text-xl font-sm">Valor da hora</label>
                             <Money3Component
-                                v-model="form.data.amountPerHour"
+                                v-model="form.data.price_per_hour"
                                 placeholder="Valor da hora"
                                 decimal=","
                                 thousands="."
@@ -52,11 +52,13 @@ function makeForm() {
     const form = useForm<{
         name: string;
         description: string;
-        amountPerHour: string;
+        price_per_hour: string;
     }>('projects');
 
-    const submit = async () => {
-        console.log(form.data);
+    const submit = () => {
+        form.post({prepareBody: (data) => ({...data, price_per_hour: form.data.price_per_hour.replace('.', '')})}).then(() => {
+            dialog.value = false
+        });
     };
 
     return {
