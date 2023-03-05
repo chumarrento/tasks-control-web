@@ -1,5 +1,5 @@
 <template>
-    <VCard>
+    <VCard :to="`app/project/${project.id}`">
         <VCardTitle>
             <section class="flex justify-between">
                 <h2>{{ project.name}}</h2>
