@@ -6,9 +6,11 @@
 
                 <VCardText>
                     <VContainer>
-                        <VTextField v-model="form.data.title" placeholder="Título da atividade" label="Título" />
-                        <VTextField v-model="form.data.starts_at" type="datetime-local" placeholder="Data e hora de início" label="Data inicial" />
-                        <VTextField v-model="form.data.ends_at" type="datetime-local" placeholder="Data e hora de termino" label="Data final" />
+                        <VTextField v-model="form.data.title" placeholder="Título da atividade" label="Título" required />
+                        <VTextField v-model="form.data.starts_at" type="datetime-local" placeholder="Data e hora de início"
+                            label="Data inicial" required />
+                        <VTextField v-model="form.data.ends_at" type="datetime-local" placeholder="Data e hora de termino"
+                            label="Data final" required />
                     </VContainer>
                 </VCardText>
 
@@ -31,6 +33,9 @@ const props = defineProps<{ project: Project }>()
 
 const { form, submit } = makeForm();
 
+const emit = defineEmits<{
+    (event: 'newTaskCreated'): void;
+}>();
 
 function makeForm() {
     const formUrl = computed(() => `projects/${props.project.id}/tasks`);
@@ -42,7 +47,8 @@ function makeForm() {
 
     const submit = () => {
         form.post().then(() => {
-            dialog.value = false
+            dialog.value = false;
+            emit('newTaskCreated');
         });
     };
 
