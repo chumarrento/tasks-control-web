@@ -1,14 +1,13 @@
 <template>
     <header>
         <VBreadcrumbs :items="items">
-            <template v-slot:divider>
+            <template #divider>
                 <VIcon :icon="mdiChevronRight"></VIcon>
             </template>
         </VBreadcrumbs>
 
         <section class="flex items-center justify-between">
             <h1>Relatório do mês</h1>
-
 
             <div>
                 <VueDatePicker v-model="date" :dark="true" month-picker />
@@ -21,7 +20,6 @@
                 <ReportDetails :report="report" />
             </section>
             <TasksTable v-if="report.tasks.length" :tasks="report.tasks" />
-
         </template>
         <template v-else>
             <section class="flex items-center justify-center">
@@ -31,20 +29,20 @@
     </main>
 </template>
 <script setup lang="ts">
-import { mdiChevronRight, mdiForward } from '@mdi/js';
+import { mdiChevronRight } from '@mdi/js';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { Project, Report } from '~~/types';
 
-const date = ref<Date | { month: number, year: number }>(new Date());
-const report = ref<Report>()
+const date = ref<Date | { month: number; year: number }>(new Date());
+const report = ref<Report>();
 
 onMounted(async () => {
-    await loadReportOfMonth({ month: date.value.getMonth(), year: date.value.getFullYear() })
+    await loadReportOfMonth({ month: date.value.getMonth(), year: date.value.getFullYear() });
 });
 
 watch(date, async () => {
-    await loadReportOfMonth({ month: date.value.month, year: date.value.year })
+    await loadReportOfMonth({ month: date.value.month, year: date.value.year });
 });
 const route = useRoute();
 
@@ -52,18 +50,18 @@ const { data: project } = await useAsyncData(() => useHttp().get<{ data: Project
     transform: (r) => r.data,
 });
 
-
 async function loadReportOfMonth(date: { month: number; year: number }) {
-    const { data } = await useAsyncData(() =>
-        useHttp().get<{ data: Report }>(`projects/${route.params.id}/report`, {
-            query: { month: date.month + 1, year: date.year },
-        }),
+    const { data } = await useAsyncData(
+        () =>
+            useHttp().get<{ data: Report }>(`projects/${route.params.id}/report`, {
+                query: { month: date.month + 1, year: date.year },
+            }),
         {
-            transform: (r) => r.data
+            transform: (r) => r.data,
         }
     );
 
-    report.value = data.value ?? undefined
+    report.value = data.value ?? undefined;
 }
 
 const items = [

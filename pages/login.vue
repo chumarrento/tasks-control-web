@@ -4,17 +4,25 @@
             <div class="form-card">
                 <h1 class="text-slate-50 font-semibold mb-5 text-lg text-center">Bem vindo ao tasks control</h1>
                 <VForm class="w-full" @submit.prevent="submit">
-                    <VTextField v-model="form.data.email" label="Email" type="email" placeholder="Digite seu email"
-                        class="mb-2" />
-                    <VTextField v-model="form.data.password" label="Senha" type="Password"
-                        placeholder="Digite sua senha" />
+                    <VTextField
+                        v-model="form.data.email"
+                        label="Email"
+                        type="email"
+                        placeholder="Digite seu email"
+                        class="mb-2"
+                    />
+                    <VTextField
+                        v-model="form.data.password"
+                        label="Senha"
+                        type="Password"
+                        placeholder="Digite sua senha"
+                    />
 
                     <section class="flex justify-between">
                         <NuxtLink class="text-violet-300" to="register">Ainda não tem conta? Registre-se</NuxtLink>
                         <VBtn type="submit" :loading="form.busy.value" :disabled="form.busy.value">Entrar</VBtn>
                     </section>
                 </VForm>
-
             </div>
         </VMain>
     </VLayout>
@@ -27,6 +35,11 @@ const userStore = useUser();
 const router = useRouter();
 const { form, submit } = makeForm();
 
+await useAuth().loadIfNotLoaded();
+
+if (userStore.user) {
+    navigateTo('/app');
+}
 
 function makeForm() {
     const form = useForm<{
@@ -35,21 +48,19 @@ function makeForm() {
     }>('auth/login');
 
     const submit = async () => {
-        const response = await form.post<{ user: User, token: string }>();
+        const response = await form.post<{ user: User; token: string }>();
         if (response) {
             localStorage.setItem('accessToken', response.token);
             userStore.setUser(response.user);
             router.push('/app');
         }
-    }
+    };
 
     return {
         form,
-        submit
-    }
+        submit,
+    };
 }
-
-
 </script>
 
 <style scoped lang="css">

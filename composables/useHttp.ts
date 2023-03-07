@@ -22,12 +22,12 @@ export function useHttp() {
         credentials: 'include',
         headers: {
             accept: 'application/json, text/plain, */*',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}` 
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
         ...opts,
     });
     const onError = (error: any) => {
-        throw error
+        throw error;
     };
 
     return {

@@ -1,5 +1,5 @@
 <template>
-     <VTable>
+    <VTable>
         <thead>
             <tr>
                 <th class="text-left">ID</th>
@@ -21,5 +21,5 @@
 <script setup lang="ts">
 import { Task } from '~~/types';
 
-defineProps<{ tasks: Task[]}>()
+defineProps<{ tasks: Task[] }>();
 </script>

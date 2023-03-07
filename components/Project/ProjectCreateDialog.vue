@@ -7,13 +7,26 @@
                 <VCardText>
                     <VContainer>
                         <VTextField v-model="form.data.name" placeholder="Nome do projeto" label="Nome do projeto" />
-                        <VTextarea v-model="form.data.description" placeholder="Descrição do projeto"
-                            label="Descrição do projeto" color="primary" />
+                        <VTextarea
+                            v-model="form.data.description"
+                            placeholder="Descrição do projeto"
+                            label="Descrição do projeto"
+                            color="primary"
+                        />
                         <section>
                             <label class="text-xl font-sm">Valor da hora</label>
-                            <Money3Component v-model="form.data.price_per_hour" placeholder="Valor da hora" decimal=","
-                                thousands="." prefix="R$ " suffix="" :precision="2" :masked="false" :allow-blank="false"
-                                class="w-full p-2 bg-[#5D5D5D]" />
+                            <Money3Component
+                                v-model="form.data.price_per_hour"
+                                placeholder="Valor da hora"
+                                decimal=","
+                                thousands="."
+                                prefix="R$ "
+                                suffix=""
+                                :precision="2"
+                                :masked="false"
+                                :allow-blank="false"
+                                class="w-full p-2 bg-[#5D5D5D]"
+                            />
                         </section>
                     </VContainer>
                 </VCardText>
@@ -47,9 +60,11 @@ function makeForm() {
     }>('projects');
 
     const submit = () => {
-        form.post({ prepareBody: (data) => ({ ...data, price_per_hour: form.data.price_per_hour.replace('.', '') }) }).then(() => {
+        form.post({
+            prepareBody: (data) => ({ ...data, price_per_hour: form.data.price_per_hour.replace('.', '') }),
+        }).then(() => {
             dialog.value = false;
-            emit('newProjectCreated')
+            emit('newProjectCreated');
         });
     };
 

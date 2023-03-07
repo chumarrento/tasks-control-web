@@ -8,7 +8,7 @@
             <h2 class="text-xl">Lista de atividades do projeto</h2>
             <section class="flex gap-4">
                 <VBtn :to="`/app/project/${project.id}/report`">Relatorio mensal</VBtn>
-                <VBtn @click="openCreateTaskDialog" :append-icon="mdiPlus">Criar uma atividade</VBtn>
+                <VBtn :append-icon="mdiPlus" @click="openCreateTaskDialog">Criar uma atividade</VBtn>
             </section>
         </section>
 
@@ -29,19 +29,23 @@ const openCreateTaskDialog = () => {
 // TODO: paginate table
 
 // TODO: added total amount of project and maybe graph with projects tasks
-
-// TODO: view total of project by month - HIGH PRIORITY
 const route = useRoute();
-const { data: project, refresh: refreshProject } = await useAsyncData(() => useHttp().get<{ data: Project }>(`projects/${route.params.id}`), {
-    transform: (r) => r.data,
-});
+const { data: project, refresh: refreshProject } = await useAsyncData(
+    () => useHttp().get<{ data: Project }>(`projects/${route.params.id}`),
+    {
+        transform: (r) => r.data,
+    }
+);
 
-const { data: tasks, refresh: refreshTasks } = await useAsyncData(() => useHttp().get<{ data: Task[] }>(`projects/${route.params.id}/tasks`), {
-    transform: (r) => r.data,
-});
+const { data: tasks, refresh: refreshTasks } = await useAsyncData(
+    () => useHttp().get<{ data: Task[] }>(`projects/${route.params.id}/tasks`),
+    {
+        transform: (r) => r.data,
+    }
+);
 
 const refreshData = () => {
     refreshTasks();
     refreshProject();
-}
+};
 </script>

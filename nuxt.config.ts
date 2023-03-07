@@ -1,13 +1,11 @@
 import vuetify from 'vite-plugin-vuetify';
 
 export default defineNuxtConfig({
+    ssr: false,
     runtimeConfig: {
         public: {
-            api: process.env.NUXT_PUBLIC_API_URL
-        }
-    },
-    routeRules: {
-        '/app/**': { ssr: false },
+            api: process.env.NUXT_PUBLIC_API_URL,
+        },
     },
     modules: [
         '@nuxtjs/tailwindcss',
@@ -31,4 +29,4 @@ export default defineNuxtConfig({
     build: {
         transpile: ['vuetify'],
     },
-})
+});

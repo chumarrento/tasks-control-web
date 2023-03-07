@@ -23,6 +23,6 @@ const openCreateProjectDialog = () => {
 };
 
 const { data: projects, refresh } = useAsyncData(() => useHttp().get<{ data: Project[] }>('projects'), {
-    transform: (r) => r.data
-})
+    transform: (r) => r.data,
+});
 </script>
