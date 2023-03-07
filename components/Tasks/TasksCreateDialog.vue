@@ -6,11 +6,26 @@
 
                 <VCardText>
                     <VContainer>
-                        <VTextField v-model="form.data.title" placeholder="Título da atividade" label="Título" required />
-                        <VTextField v-model="form.data.starts_at" type="datetime-local" placeholder="Data e hora de início"
-                            label="Data inicial" required />
-                        <VTextField v-model="form.data.ends_at" type="datetime-local" placeholder="Data e hora de termino"
-                            label="Data final" required />
+                        <VTextField
+                            v-model="form.data.title"
+                            placeholder="Título da atividade"
+                            label="Título"
+                            required
+                        />
+                        <VTextField
+                            v-model="form.data.starts_at"
+                            type="datetime-local"
+                            placeholder="Data e hora de início"
+                            label="Data inicial"
+                            required
+                        />
+                        <VTextField
+                            v-model="form.data.ends_at"
+                            type="datetime-local"
+                            placeholder="Data e hora de termino"
+                            label="Data final"
+                            required
+                        />
                     </VContainer>
                 </VCardText>
 
@@ -29,7 +44,7 @@ import { Project } from '~~/types';
 
 const { dialog } = defineModel<{ dialog: boolean }>();
 
-const props = defineProps<{ project: Project }>()
+const props = defineProps<{ project: Project }>();
 
 const { form, submit } = makeForm();
 
@@ -47,6 +62,7 @@ function makeForm() {
 
     const submit = () => {
         form.post().then(() => {
+            // TODO: se der erro não fechar o modal e mostrar o feedback dos erros
             dialog.value = false;
             emit('newTaskCreated');
         });
